@@ -1,0 +1,191 @@
+{% load static %}
+<!-- Add this for inheritance -->
+<!DOCTYPE html>
+<html lang="en">
+<head><title>{% block title %}ButterflyNet{% endblock %}</title>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+<link rel="stylesheet" href="{css/iconbar.css">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/article.css">
+
+</head>
+<body style="height: 500px;">
+{% block pagecontent %}
+      <!-------------------------------Nav bar section-------------------------------------------->
+      <section>
+       
+        <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+          <div class="container-fluid">
+            <a class="navbar-brand" href="#">Insect Connection</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+              aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+      
+            <div class="collapse navbar-collapse" id="navbarNav">
+              <ul class="navbar-nav ms-auto">
+      
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle dropdown-content" href="#" id="navbarDropdownMenuLink" role="button"
+                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Lepidoptera apps</a>
+                  <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                    <a class="dropdown-item" href="butterfly.html">Butterfly</a>
+                    <a class="dropdown-item" href="moth.html">Moth</a>
+                    <a class="dropdown-item" href="skipper.html">Skipper</a>
+                  </div>
+                </li>
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle dropdown-content" href="#" id="navbarDropdownMenuLink" role="button"
+                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Object measurements apps</a>
+                  <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                    <a class="dropdown-item" href="pupae_size.html">Pupae Size</a>
+                    <a class="dropdown-item" href="pupae_gender.html">Pupae Gender</a>
+                    <a class="dropdown-item" href="pupae_defects.html">Pupae Defects</a>
+                    <a class="dropdown-item" href="pupae_dayold.html">Pupae Day Old</a>
+                  </div>
+                </li>
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle dropdown-content" href="#" id="navbarDropdownMenuLink" role="button"
+                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Object Identification apps</a>
+                  <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                    <a class="dropdown-item" href="lepidoptera.html">Lepidoptera</a>
+                    <a class="dropdown-item" href="hostplantidentifier.html">Host Plants</a>
+                    <a class="dropdown-item" href="predators.html">Predators</a>
+                  </div>
+                </li>
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle dropdown-content" href="#" id="navbarDropdownMenuLink" role="button"
+                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Match Identifier Apps</a>
+                  <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                    <a class="dropdown-item" href="objectidentifier.html">Butterfly and Hosplants</a>
+                  </div>
+                </li>
+                <li class="nav-item dropdown">
+                  <a class="nav-link" href="setting.html">Setting</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="rate.html">Rate</a>
+                </li>
+                <li class="nav-item dropdown">
+                  <a class="nav-link" href="weather.html">Weather</a>
+                </li>
+                <li class="nav-item dropdown">
+                  <a class="nav-link" href="{% url 'dashboard' %}">Dashboard</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+      </section>
+
+      <!-----------------------------Category section--------------------------------------------->
+      <br>
+      <hr>
+      
+   
+      <div class="container-fluid">
+        <img class="imagebackground" src="icon/bgbutterfly.jpg" alt="" srcset="">
+      </div>
+      <hr>
+      <header class="text-center">
+        <h2 class="display-8">Your Butterfly Apps</h2>
+      </header>
+      <div class="row icon-boxes">
+      
+        <section class="container">
+          <div id="intro-section" class="row">
+            <div class="col-xl-4 text-center btn">
+              <a href="http://">
+                <div>
+               
+                  <img class="img-fluid btn" src="{% static 'images/photo.png' %}" />
+                    
+                 <br>
+                  <h2 class="display-6"> Photo</h2>
+                </div>
+              </a>
+            </div>
+            <div class="col-xl-4 text-center btn">
+              <a href="{% url 'camera' %}">
+                <div>
+                
+                  <img class="img-fluid btn" src="{% static 'images/video.png' %}" />
+                                       <br>
+                  <h2 class="display-6">Videos</h2>
+                </div>
+              </a>
+            </div>
+            <div class="col-xl-4 text-center btn">
+              <a href="http://">
+                <div>
+                  
+                  <img class="img-fluid btn" src="{% static 'images/history.png' %}" />
+                    
+                   <br>
+                  <h2 class="display-6">History</h2>
+                </div>
+              </a>
+            </div>
+          </div>
+      </div>
+      </section>
+      </div><br><br>
+      <hr>
+
+      <!----------------------------- Fixed Bottom Menu section--------------------------------------------->
+      <nav class="navbar navbar-expand-sm navbar-dark bg-light fixed-bottom">
+        <div class="icon-bar">
+          <div class="icon-size">
+            <a class="active " href="index.html"><img src="images\Homey.png"></a>
+          </div>
+          <div class="icon-size">
+            <a href="{% url 'butterfly' %}"><img src="images\butterfly.png" alt="butterfly"></a>
+          </div>
+          <div class="icon-size">
+            <a href="alarm.html"><img src="images\alarm.png"></a>
+          </div>
+          <div class="icon-size">
+            <a href="{% url 'classify' %}"><img src="images\semanticsegmentation.png" alt="classify"></a>
+          </div>
+          <div class="icon-size">
+            <a href="map.html"><img src="images\globe.png"></a>
+          </div>
+        </div>
+      </nav>
+   
+      <!----------------------------- Fixed Bottom Menu section--------------------------------------------->
+
+      <article>
+        <footer>
+      
+          <div class="text-center">
+            <div class="copyright">
+              <a href="http://" class="btn">
+                <h4>Insects Connection</h4>
+              </a>
+              <p>Copyright &copy; 2022</p>
+            </div>
+      
+            <p>Author: Jerwin Montellano</p>
+            <p><a href="mailto:hege@example.com">insectsconnection@gmail.com</a></p>
+            <p>Privacy</p>
+            <p>Terms and Condition</p>
+          </div>
+        </footer>
+      </article>
+      <script src="jquery-3.6.0.slim.min.js"> </script>
+      <script src="js/bootstrap.bundle.min.js"></script>
+    {% endblock %}
+</body>
+</html>

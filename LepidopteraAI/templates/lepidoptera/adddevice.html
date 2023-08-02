@@ -1,0 +1,145 @@
+
+{% load static %}
+<!-- Add this for inheritance -->
+<!DOCTYPE html>
+<html lang="en">
+<head><title>{% block title %}ButterflyNet{% endblock %}</title>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+<link rel="stylesheet" href="{% static 'https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css' %}">
+<!-- <script src="{% static 'https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js' %}"></script>
+<script src="{% static 'https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js' %}"></script> -->
+<!-- <script src="{% static 'https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js' %}"></script> -->
+<link rel="stylesheet" href="{% static 'css/iconbar.css' %}">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  <script defer src="https://pyscript.net/alpha/pyscript.js"></script>
+</head>
+<body >
+{% include 'lepidoptera/nav-bar.html' %}
+{% block pagecontent %}
+      <!-------------------------------Nav bar section-------------------------------------------->
+
+
+      <!-----------------------------Category section--------------------------------------------->
+      <br>
+      <hr>
+      
+      <header class="text-center">
+        <table style="width:100%">
+          <tr>
+            <td>
+              <button class="btn">
+                  <a href="{% url 'index' %}"><h2 class="display-8">
+                  </h2>
+                    <span class="glyphicon glyphicon-menu-left" ></span>
+                    </h2>
+                  </a>
+                  </button></td>
+            <td><h2 class="display-8">Add Device</h2></td>
+            <td><button class="btn-primary">Done</button></td>
+          </tr>
+        </table>
+  
+      </header>
+      <!-- <div class="container-fluid">
+        <img class="imagebackground" src="icon/bgbutterfly.jpg" alt="" srcset="">
+      </div> -->
+      <hr>
+      <div class="container">
+          <form action="" >
+
+              <label for="">Name:</label>
+              <input type="text" name="" id="" class="form-control">
+              <label for="">ID:</label>
+              <input type="number" name="" id="" class="form-control">
+              <label for="">Username:</label>
+              <input type="text" name="" id="" class="form-control">
+              <label for="">Password:</label>
+              <input type="pasword" name="" id="" class="form-control">
+
+          </form>
+          <h2>Animated Modal with Header and Footer</h2>
+          
+          <!-- Trigger/Open The Modal -->
+          <button id="myBtn">Open Modal</button>
+          
+          <!-- The Modal -->
+          <div id="myModal" class="modal">
+          
+            <!-- Modal content -->
+            <div class="modal-content">
+              <div class="modal-header">
+                <span class="close">&times;</span>
+                <h2>Modal Header</h2>
+              </div>
+              <div class="modal-body">
+                <p>Some text in the Modal Body</p>
+                <p>Some other text...</p>
+              </div>
+              <div class="modal-footer">
+                <h3>Modal Footer</h3>
+              </div>
+            </div>
+          
+          </div>
+          
+          <script>
+            // Get the modal
+            var modal = document.getElementById("myModal");
+
+            // Get the button that opens the modal
+            var btn = document.getElementById("myBtn");
+
+            // Get the <span> element that closes the modal
+            var span = document.getElementsByClassName("close")[0];
+
+            // When the user clicks the button, open the modal 
+            btn.onclick = function () {
+              modal.style.display = "block";
+            }
+
+            // When the user clicks on <span> (x), close the modal
+            span.onclick = function () {
+              modal.style.display = "none";
+            }
+
+            // When the user clicks anywhere outside of the modal, close it
+            window.onclick = function (event) {
+              if (event.target == modal) {
+                modal.style.display = "none";
+              }
+            }
+          </script>
+      </div>
+
+
+      <!----------------------------- Fixed Bottom Menu section--------------------------------------------->
+
+      <article>
+        <footer>
+      
+          <div class="text-center">
+            <div class="copyright">
+              <a href="http://" class="btn">
+                <h4>Insects Connection</h4>
+              </a>
+              <p>Copyright &copy; 2022</p>
+            </div>
+      
+            <p>Author: Jerwin Montellano</p>
+            <p><a href="mailto:hege@example.com">insectsconnection@gmail.com</a></p>
+            <p>Privacy</p>
+            <p>Terms and Condition</p>
+          </div>
+        </footer>
+      </article>
+      <script src="{% static 'jquery-3.6.0.slim.min.js' %}"> </script>
+      <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+      
+    {% endblock %}
+</body>
+</html>

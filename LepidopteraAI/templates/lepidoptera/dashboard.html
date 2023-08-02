@@ -1,0 +1,411 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head><title>{% block title %}Dashboard{% endblock %}</title>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+<link rel="stylesheet" href="{% static 'css/iconbar.css' %}">
+
+
+
+</head>
+<body>
+    {% block pagecontent %}
+<!-------------------------------Nav bar section-------------------------------------------->
+<section>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top"  >
+     <div class="container-fluid">
+       <a class="navbar-brand" href="#">Dashboard</a>
+       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+           <span class="navbar-toggler-icon"></span>
+       </button>
+      
+  <div class="collapse navbar-collapse" id="navbarNav">
+         <ul class="navbar-nav ms-auto">
+             <li id="home-item" class="nav-item font-weight-bold">
+                 <a class="nav-link " href="{% url 'index' %}">Home</a>
+             </li>
+             
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle dropdown-content" href="#" id="navbarDropdownMenuLink" role="button"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Lepidoptera apps</a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <a class="dropdown-item" href="{% url 'butterfly' %}">Butterfly</a>
+                            <a class="dropdown-item" href="moth.html">Moth</a>
+                            <a class="dropdown-item" href="skipper.html">Skipper</a>
+                        </div>
+                    </li>
+                   
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle dropdown-content" href="#" id="navbarDropdownMenuLink" role="button"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Object Identification apps</a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" href="lepidoptera.html">Lepidoptera</a>
+                        <a class="dropdown-item" href="hostplantidentifier.html">Host Plants</a>
+                        <a class="dropdown-item" href="predators.html">Predators</a>
+                    </div>
+                </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle dropdown-content" href="#" id="navbarDropdownMenuLink" role="button"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Object Measurements Apps</a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <a class="dropdown-item" href="pupae_size.html">Pupae Size</a>
+                            <a class="dropdown-item" href="pupae_gender.html">Pupae Gender</a>
+                            <a class="dropdown-item" href="pupae_defects.html">Pupae Defects</a>
+                            <a class="dropdown-item" href="pupae_dayold.html">Pupae Day Old</a>
+                        </div>
+                    </li>
+                 
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle dropdown-content" href="#" id="navbarDropdownMenuLink" role="button"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Match Identifier Apps</a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <a class="dropdown-item" href="objectidentifier.html">Butterfly and Hosplants</a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link" href="weather.html">Weather</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link" href="setting.html">Setting</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="rate.html">Rate</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link" href="{% url 'dashboard' %}">Dashboard</a>
+                    </li>
+            </ul>
+    </div>
+</nav>
+</section>
+<!-----------------------------Category section--------------------------------------------->
+<hr>
+<br>
+<header class="text-center"> <h1 class="center-align redlighten-3">Your Name: {{Client}}</h1> </header>  
+<div class="row icon-boxes"> 
+    
+<section class="container">
+          <div id="intro-section" class="row">
+                  <div class="col-xl-4 text-center btn">
+                      <div class="container-fluid card">
+                        <h5 class="card-title">Products</h5>
+                        <img class="object-size" src="{% static 'images/product.png' %}"/><br>
+                        <!-- <h5 class="display-12">Products</h5> -->
+                        <!-- Button trigger modal -->
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                            Product Details
+                        </button>
+                        
+                        <!-- Modal -->
+                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Product Details</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        ...
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-primary">Save changes</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                     
+                 
+                  <div class="col-xl-4 text-center btn">
+                      <div class="container-fluid card">
+                        <h5 class="card-title">Customer</h5>
+                        <a href="customer.html">
+                        <img class="object-size" src="{% static 'images/customer.png' %}"/>
+                        </a><br>
+                        <!-- <a href="http://"><h5 class="display-12"> Customer</h5></a> -->
+                       
+                        <!-- Button trigger modal -->
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                            Customer Details
+                        </button>
+                        
+                        <!-- Modal -->
+                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Customer Details</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        ...
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-primary">Save changes</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                      </div>
+                  </div>
+                  <div class="col-xl-4 text-center btn">
+                      <div class="container-fluid card">
+                        <h5 class="card-title">Rank</h5>
+                        <img class="object-size" src="{% static 'images/rank.png' %}"/><br>
+                        <!-- <h5 class="display-12">Rank</h5> -->
+                        <!-- Button trigger modal -->
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                            Leaderboard
+                        </button>
+                        
+                        <!-- Modal -->
+                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Leaderboard</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        ...
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-primary">Save changes</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        </div>
+                        </div>
+                      </div>
+                        
+                    </div>
+                  </div>
+                  </div>
+          </div>
+        </div>
+</section>
+</div>
+    <section class="container container-fluid">
+            <h2 class="card-title ">Assets</h2>
+                <div id="intro-section" class="row">
+                    <div class="col-xl-3 text-center">
+                        <div class="container-fluid card">
+                            <img src="{% static 'images\semanticsegmentation.png'%}" alt="classify">
+                            <span class="dot"></span>
+                            
+                        <a href="{% url 'butterfly' %}" class="btn btn-succes"><h6 class="display-8">My Lepidoptera</h6></a><button class="btn-danger">Allocate</button>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 text-center">
+                        <div class="container-fluid card">
+                            <img src="{% static 'images\semanticsegmentation.png'%}" alt="classify">
+                            <span class="dot"></span>
+                            <a href="http://" class="btn btn-succes"><h6 class="display-8">My Gift Checks</h6></a><button class="btn-danger">Allocate</button>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 text-center">
+                        <div class="container-fluid card">
+                            <img src="{% static 'images\semanticsegmentation.png'%}" alt="classify">
+                            <span class="dot"></span>
+                            <a href="http://" class="btn btn-succes"><h6 class="display-8">Monthly Points</h6></a><button class="btn-danger">Allocate</button>
+                        </div>  
+                    </div>
+                    <div class="col-xl-3 text-center">
+                        <div class="container-fluid card">
+                            <img src="{% static 'images\semanticsegmentation.png'%}" alt="classify">
+                            <span class="dot"></span>
+                            <a href="http://" class="btn btn-succes"><h6 class="display-8">All Year/12 months</h6></a><button class="btn-danger">Allocate</button>
+                        </div>  
+                    </div>
+                </div>
+            <br>
+            <h2 class="center-align redlighten-3 ">Images Processing</h2>
+    <section class="container container-fluid">
+        <div id="intro-section" class="row">
+            <div class="col-xl-2 text-center container-fluid card .container-fluid, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl">
+              <div class="object">
+                <a href="{% url 'classify' %}"><img class="object-size" src="{% static 'images\classify.png'%}" alt="classify"></a>
+                <a href="{% url 'classify' %}">
+                    <h6 class="display-12">Classification</h6><button class="bg-info">Images</button>
+                </a>
+              </div>
+            </div>
+            <div class="col-xl-2 text-center container-fluid card .container-fluid, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl">
+                <div class="object">
+                    <a href="{% url 'classify' %}"><img class="object-size"  src="{% static 'images\objectdetect.png'%}" alt="classify"></a>
+                    <a href="{% url 'classify' %}">
+                        <h6 class="display-12">Detection</h6><button class="bg-info">Images</button>
+                    </a>
+                </div>
+            </div>
+            <div class="col-xl-2 text-center container-fluid card .container-fluid, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl">
+                <div class="object ">
+                    <a href="{% url 'classify' %}"><img class="object-size" src="{% static 'images\pupaesized.png' %}" alt="classify"></a>
+                    <a href="{% url 'classify' %}">
+                        <h6 class="display-12">Measurement</h6> <button class="bg-info">Images</button>
+                    </a>
+                </div>
+            </div>
+            <div class="col-xl-2 text-center container-fluid card .container-fluid, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl">
+                <div class="object">
+                    <a href="{% url 'classify' %}"><img class="object-size" src="{% static 'images\semanticsegmentation.png'%}" alt="classify"></a>
+                    <a href="{% url 'classify' %}">
+                        <h6 class="display-12">Segmentation</h6><button class="bg-info">Images</button>
+                    </a>
+                </div>
+            </div>
+            <div class="col-xl-2 text-center container-fluid card .container-fluid, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl">
+                <div class="object">
+                    <a href="{% url 'weather' %}"><img class="object-size" src="{% static 'images\weather.png'%}" alt="classify"></a>
+                    <a href="{% url 'weather' %}">
+                        <h6 class="display-12">Weather</h6><button class="bg-info">Temperature</button>
+                    </a>
+                </div>
+            </div>
+      </div>
+</section>
+<br>
+<section class="container container-fluid">
+    <h2 class="center-align redlighten-3 ">Moth DEFI</h2>
+    <div id="intro-section" class="row">
+        <div class="col-xl-3 text-center">
+            <div class="container-fluid card">
+                <img src="{% static 'images\segment.png'%}" alt="classify">
+                <span class="dot"></span>
+                <a href="http://" class="btn btn-succes">
+                    <h6 class="display-8">Home</h6>
+                </a>
+            </div>
+        </div>
+        <div class="col-xl-3 text-center">
+            <div class="container-fluid card">
+                <img src="{% static 'images\segment.png'%}" alt="classify">
+                <span class="dot"></span>
+                <a href="{% url 'covnet' %}" class="btn btn-succes">
+                    <h6 class="display-8">Assets</h6>
+                </a>
+            </div>
+        </div>
+        <div class="col-xl-3 text-center">
+            <div class="container-fluid card">
+                <img src="{% static 'images\segment.png'%}" alt="classify">
+                <span class="dot"></span>
+                <a href="http://" class="btn btn-succes">
+                    <h6 class="display-8">Pupate</h6>
+                </a>
+            </div>
+        </div>
+        <div class="col-xl-3 text-center">
+            <div class="container-fluid card">
+                <img src="{% static 'images\segment.png'%}" alt="classify">
+                <span class="dot"></span>
+                <a href="http://" class="btn btn-succes">
+                    <h6 class="display-8">Boost</h6>
+                </a>
+            </div>
+        </div>
+        <div class="col-xl-12 text-center">
+            <div class="container-fluid card">
+                <img src="{% static 'images\segment.png'%}" alt="classify">
+                <span class="dot"></span>
+                <a href="http://" class="btn btn-succes">
+                    <h6 class="display-8">Activity</h6>
+                </a>
+            </div>
+        </div>
+    </div>
+    <br>
+    <h2 class="center-align redlighten-3">My NFT</h2>
+    <section class="container container-fluid">
+        <div id="intro-section" class="row">
+            <div
+                class="col-xl-2 text-center container-fluid card .container-fluid, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl">
+                <div class="object">
+                    <a href="{% url 'classify' %}"><img class="object-size" src="{% static 'images\battousai-09.jpg'%}"
+                            alt="classify"></a>
+        
+                </div>
+            </div>
+            <div
+                class="col-xl-2 text-center container-fluid card .container-fluid, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl">
+                <div class="object">
+                    <a href="{% url 'classify' %}"><img class="object-size" src="{% static 'images\battousai-08.png'%}"
+                            alt="classify"></a>
+                
+                </div>
+            </div>
+            <div
+                class="col-xl-2 text-center container-fluid card .container-fluid, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl">
+                <div class="object ">
+                    <a href="{% url 'classify' %}"><img class="object-size" src="{% static 'images\battousa1-2.png' %}"
+                            alt="classify"></a>
+                   
+                </div>
+            </div>
+            <div
+                class="col-xl-2 text-center container-fluid card .container-fluid, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl">
+                <div class="object">
+                    <a href="{% url 'classify' %}"><img class="object-size"
+                            src="{% static 'images\battousai-3.png'%}" alt="classify"></a>
+                  
+                </div>
+            </div>
+            <div
+                class="col-xl-2 text-center container-fluid card .container-fluid, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl">
+                <div class="object">
+                    <a href="{% url 'classify' %}"><img class="object-size" src="{% static 'images\battousai-06.jpg'%}"
+                            alt="classify"></a>
+                
+                </div>
+            </div>
+        </div>
+    </section>
+<nav class="navbar navbar-expand-sm navbar-dark bg-light fixed-bottom">
+    <div class="icon-bar">
+        <div class="icon-size">
+            <a class="active " href="{% url 'index' %}"><img src="{% static 'images\Homey.png' %}"></a>
+        </div>
+        <div class="icon-size">
+            <a href="{% url 'classify' %}"><img src="{% static 'images\classify.png' %}" ></a>
+        </div>
+        <div class="icon-size">
+            <a href="alarm.html"><img src="{% static 'images\objectdetect.png' %}"></a>
+        </div>
+        <div class="icon-size">
+            <a href=""><img src="{% static 'images\pupaesized.png'%}"></a>
+        </div>
+        <div class="icon-size">
+            <a href="map.html"><img src="{% static 'images\semanticsegmentation.png' %}"></a>
+        </div>
+        <div class="icon-size">
+            <a href="{% url 'weather' %}"><img src="{% static 'images\weather2.png' %}"></a>
+        </div>
+        <div class="icon-size">
+            <a href="{% url 'adddevice' %}"><img src="{% static 'images\system-setting.png' %}"></a>
+        </div>
+    </div>
+</nav>
+<hr>
+    <script src="{% static 'jquery-3.6.0.slim.min.js' %}"> </script>
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+    {% endblock %}
+</body>
+</html>
+
+

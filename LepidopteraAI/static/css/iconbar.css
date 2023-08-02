@@ -1,0 +1,237 @@
+body{
+  margin: 0;
+  height: 1800px;
+  padding-top: 100px;
+  padding-bottom: 120px;
+}
+.logo {
+  width: 40px;
+  height: 40px;
+}
+
+.lep {
+  width: 40px;
+  height: 40px;
+  margin-right: 5px;
+  margin-left: 5px;
+}
+
+.icon-bar {
+  width: 200%;
+  height: 40px;
+  background-color: rgb(18, 116, 9);
+  text-decoration: none;
+}
+.icon-size{
+  height: auto ;
+  width: auto;
+}
+.object {
+  height: auto ;
+  width: auto;
+  align-items: center;
+  margin-right: 5px;
+  margin-left: 5px;
+
+}
+.object-size{
+    height: 80px;
+    width: 90px;
+}
+.icon-bar a {
+  float: left;
+  width: 14.28%;
+  align-items: center;
+  text-align: center;
+  padding: 3.5px 0;
+  transition: all 0.3s ease;
+  color: rgb(6, 250, 18);
+  border: none;
+
+}
+
+.icon-bar a:hover {
+  background-color: #00FF6C;
+  height: 40px;
+  text-decoration: none;
+}
+
+.active {
+  background-color: Blue;
+  height: 40px;
+}
+.text-decoration-none
+a:hover {
+  text-decoration: none;
+}
+
+img {
+  height: 5vmin;
+  width: fit-content;
+}
+
+/*<!------imagbackground------>*/
+.imagebackground {
+  background-image: url(icon/bgbutterfly.jpg);
+  /* background-image: linear-gradient(to bottom right, #305170, #6DFC6B); */
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  width: 100%;
+  height: auto;
+  border-radius: 50px 50px 0px 0px;
+  background-blend-mode: overlay;
+}
+.img-fluid {
+  width: 200px;
+  height: 200px;
+  padding: 10px 10px 10px 10px;
+  align-items: center;
+}
+
+
+.row {
+  --bs-gutter-x: 1.5rem;
+  --bs-gutter-y: 0;
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: calc(var(--bs-gutter-y) * -1);
+  margin-right: calc(var(--bs-gutter-x) * -.5);
+  margin-left: calc(var(--bs-gutter-x) * -.5);
+  padding-bottom: 20px;
+}
+
+.container, .container-fluid, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl {
+  width: 100%;
+  padding-right: var(--bs-gutter-x,.75rem);
+  padding-left: var(--bs-gutter-x,.75rem);
+  margin-right: auto;
+  margin-left: auto;
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+ 
+}
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  display: table;
+  min-width: 0;
+  word-wrap: break-word;
+  background-color: #fff;
+  background-clip: border-box;
+  border: 2px solid rgba(47, 209, 14, 0.125);
+  /* Add rounded corners to the top left and the top right corner of the image */
+  border-radius: 0.25rem;
+  padding-bottom: 20px; 
+  margin-right: 20px;
+  margin-bottom: 20px;
+  padding-top: 20px;
+  padding: 16px;
+}
+
+/* On mouse-over, add a deeper shadow */
+
+.dis a{
+text-decoration: none;
+}
+
+/* The Modal (body) */
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* The Modal (background) */
+.modal {
+  display: none;
+  /* Hidden by default */
+  position: fixed;
+  /* Stay in place */
+  z-index: 1;
+  /* Sit on top */
+  padding-top: 100px;
+  /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%;
+  /* Full width */
+  height: 100%;
+  /* Full height */
+  overflow: auto;
+  /* Enable scroll if needed */
+  background-color: rgb(0, 0, 0);
+  /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.4);
+  /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+  position: relative;
+  background-color: #fefefe;
+  margin: auto;
+  padding: 0;
+  border: 1px solid #888;
+  width: 80%;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  -webkit-animation-name: animatetop;
+  -webkit-animation-duration: 0.4s;
+  animation-name: animatetop;
+  animation-duration: 0.4s
+}
+
+/* Add Animation */
+@-webkit-keyframes animatetop {
+  from {
+    top: -300px;
+    opacity: 0
+  }
+
+  to {
+    top: 0;
+    opacity: 1
+  }
+}
+
+@keyframes animatetop {
+  from {
+    top: -300px;
+    opacity: 0
+  }
+
+  to {
+    top: 0;
+    opacity: 1
+  }
+}
+
+/* The Close Button */
+.close {
+  color: white;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.modal-header {
+  padding: 2px 16px;
+  background-color: #5cb85c;
+  color: white;
+}
+
+.modal-body {
+  padding: 2px 16px;
+}
+
+.modal-footer {
+  padding: 2px 16px;
+  background-color: #5cb85c;
+  color: white;
+}

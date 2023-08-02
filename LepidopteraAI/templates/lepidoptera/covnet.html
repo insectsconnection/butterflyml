@@ -1,0 +1,275 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>
+         {% block title %}Covnet{% endblock %}
+    </title>
+    <link rel="stylesheet" href="https://pyscript.net/alpha/pyscript.css" />
+    <script defer src="https://pyscript.net/alpha/pyscript.js"></script>
+    
+    <!-- <script src="{% static 'js/main.js' %}"></script> This is how to include a static file -->
+    <!-- <link rel="stylesheet" href="{% static 'css/main.css' %}" type="text/css" /> -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/iconbar.css' %}">
+    <script src="{% static 'https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js' %}"></script>
+    <script src="{% static 'https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js' %}"></script>
+    <script src="{% static 'https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js' %}"></script>
+    
+    
+    <py-env>
+        - numpy
+        - matplotlib
+      
+    </py-env>
+
+</head>
+
+<body>
+<py-script>
+  import os
+  import cv2
+  import time
+  import argparse
+  import multiprocessing
+  import numpy as np
+  import tensorflow as tf
+  
+  from utils.app_utils import FPS, WebcamVideoStream, HLSVideoStream
+  from multiprocessing import Queue, Pool
+  from object_detection.utils import label_map_util
+  from object_detection.utils import visualization_utils as vis_util
+  
+  CWD_PATH = os.getcwd()
+  
+  # Path to frozen detection graph. This is the actual model that is used for the object detection.
+  MODEL_NAME = 'ssd_mobilenet_v1_coco_11_06_2017'
+  PATH_TO_CKPT = os.path.join(
+  CWD_PATH, 'object_detection', MODEL_NAME, 'frozen_inference_graph.pb')
+  
+  # List of the strings that is used to add correct label for each box.
+  PATH_TO_LABELS = os.path.join(
+  CWD_PATH, 'object_detection', 'data', 'mscoco_label_map.pbtxt')
+  
+  NUM_CLASSES = 90
+  
+  # Loading label map
+  label_map = label_map_util.load_labelmap(PATH_TO_LABELS)
+  categories = label_map_util.convert_label_map_to_categories(label_map, max_num_classes=NUM_CLASSES,
+  use_display_name=True)
+  category_index = label_map_util.create_category_index(categories)
+  
+  
+  def detect_objects(image_np, sess, detection_graph):
+  # Expand dimensions since the model expects images to have shape: [1, None, None, 3]
+  image_np_expanded = np.expand_dims(image_np, axis=0)
+  image_tensor = detection_graph.get_tensor_by_name('image_tensor:0')
+  
+  # Each box represents a part of the image where a particular object was detected.
+  boxes = detection_graph.get_tensor_by_name('detection_boxes:0')
+  
+  # Each score represent how level of confidence for each of the objects.
+  # Score is shown on the result image, together with the class label.
+  scores = detection_graph.get_tensor_by_name('detection_scores:0')
+  classes = detection_graph.get_tensor_by_name('detection_classes:0')
+  num_detections = detection_graph.get_tensor_by_name('num_detections:0')
+  
+  # Actual detection.
+  (boxes, scores, classes, num_detections) = sess.run(
+  [boxes, scores, classes, num_detections],
+  feed_dict={image_tensor: image_np_expanded})
+  
+  # Visualization of the results of a detection.
+  vis_util.visualize_boxes_and_labels_on_image_array(
+  image_np,
+  np.squeeze(boxes),
+  np.squeeze(classes).astype(np.int32),
+  np.squeeze(scores),
+  category_index,
+  use_normalized_coordinates=True,
+  line_thickness=8)
+  return image_np
+  
+  
+  def worker(input_q, output_q):
+  # Load a (frozen) Tensorflow model into memory.
+  detection_graph = tf.Graph()
+  with detection_graph.as_default():
+  od_graph_def = tf.GraphDef()
+  with tf.gfile.GFile(PATH_TO_CKPT, 'rb') as fid:
+  serialized_graph = fid.read()
+  od_graph_def.ParseFromString(serialized_graph)
+  tf.import_graph_def(od_graph_def, name='')
+  
+  sess = tf.Session(graph=detection_graph)
+  
+  fps = FPS().start()
+  while True:
+  fps.update()
+  frame = input_q.get()
+  frame_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+  output_q.put(detect_objects(frame_rgb, sess, detection_graph))
+  
+  fps.stop()
+  sess.close()
+  
+  
+  if __name__ == '__main__':
+  parser = argparse.ArgumentParser()
+  parser.add_argument('-str', '--stream', dest="stream",
+  action='store', type=str, default=None)
+  parser.add_argument('-src', '--source', dest='video_source', type=int,
+  default=0, help='Device index of the camera.')
+  parser.add_argument('-wd', '--width', dest='width', type=int,
+  default=480, help='Width of the frames in the video stream.')
+  parser.add_argument('-ht', '--height', dest='height', type=int,
+  default=360, help='Height of the frames in the video stream.')
+  parser.add_argument('-num-w', '--num-workers', dest='num_workers', type=int,
+  default=2, help='Number of workers.')
+  parser.add_argument('-q-size', '--queue-size', dest='queue_size', type=int,
+  default=5, help='Size of the queue.')
+  args = parser.parse_args()
+  
+  logger = multiprocessing.log_to_stderr()
+  logger.setLevel(multiprocessing.SUBDEBUG)
+  
+  input_q = Queue(maxsize=args.queue_size)
+  output_q = Queue(maxsize=args.queue_size)
+  pool = Pool(args.num_workers, worker, (input_q, output_q))
+  
+  if (args.stream):
+  print('Reading from hls stream.')
+  video_capture = HLSVideoStream(src=args.stream).start()
+  else:
+  print('Reading from webcam.')
+  video_capture = WebcamVideoStream(src=args.video_source,
+  width=args.width,
+  height=args.height).start()
+  
+  fps = FPS().start()
+  
+  while True: # fps._numFrames < 120 frame=video_capture.read() input_q.put(frame) t=time.time()
+    output_rgb=cv2.cvtColor(output_q.get(), cv2.COLOR_RGB2BGR) cv2.imshow('Video', output_rgb) fps.update() print('[INFO]
+    elapsed time: {:.2f}'.format(time.time() - t)) if cv2.waitKey(1) & 0xFF==ord('q'): break fps.stop() print('[INFO]
+    elapsed time (total): {:.2f}'.format(fps.elapsed())) print('[INFO] approx. FPS: {:.2f}'.format(fps.fps()))
+    pool.terminate() 
+    video_capture.stop() 
+    cv2.destroyAllWindows()
+
+</py-script>
+    {% include 'lepidoptera/nav-bar.html' %}
+    <b>
+        <p>Today is <u><label id='today'></label></u></p>
+    </b>
+    <div class="container ">
+        <div class="col-xl- 4 ">
+
+
+        
+        <div class="modal-dialog modal-dialog-scrollable " id="plot">
+                <div class="modal-content">
+                    <h5 class="modal-title">Model</h5>
+                   
+                  
+                </div>
+                <p>With panel-title:
+                  <div class="panel panel-default" id="">
+                    <div class="panel-heading">
+                      <h3 class="panel-title">Detection</h3>
+                    </div>
+                    <div class="panel-body">
+                      <div class="modal-header">
+                  
+                        <img src="{% static 'images/150108.jpg' %}" alt="" srcset="">
+                        <!-- <h2 id="output">Papilio rumansovia</h2> -->
+                              <div class="row" id="classification">
+                                  <label for="papilio_rumansovia"> Papilio rumansovia</label>
+                                  <progress id="file" max="100" value="97"> 100% </progress>
+                                  <label for="papilio_polytes">Papilio polytes </label>
+                                  <progress id="file" max="100" value="1.5"> 100% </progress>
+                                  <label for="papilio_lowi">Papilio lowi</label>
+                                  <progress id="file" max="100" value=".75"> 100% </progress>
+                                  <label for="papilio_demoleus">Papilio demoleus</label>
+                                  <progress id="file" max="100" value=".5"> 100% </progress>
+                                  <label for="papilio_palinurus">Papilio palinurus</label>
+                                  <progress id="file" max="100" value=".25"> 100% </progress>
+                              </div>
+                          </div>
+                    </div>
+                  </div>
+                
+                  <p>Without panel-title:
+                  <div class="panel panel-default">
+                    <div class="panel-heading">
+                      <h3>Segmentation</h3>
+                    </div>
+                    <div class="panel-body" id="segmented">
+                      <div class="modal-header">
+                  
+                        <img src="{% static 'images/150108.jpg' %}" alt="" srcset="">
+                        <!-- <h2 id="output">Papilio rumansovia</h2> -->
+                              <div class="row" id="classification">
+                                  <label for="papilio_rumansovia"> Papilio rumansovia</label>
+                                  <progress id="file" max="100" value="97"> 100% </progress>
+                                  <label for="papilio_polytes">Papilio polytes </label>
+                                  <progress id="file" max="100" value="1.5"> 100% </progress>
+                                  <label for="papilio_lowi">Papilio lowi</label>
+                                  <progress id="file" max="100" value=".75"> 100% </progress>
+                                  <label for="papilio_demoleus">Papilio demoleus</label>
+                                  <progress id="file" max="100" value=".5"> 100% </progress>
+                                  <label for="papilio_palinurus">Papilio palinurus</label>
+                                  <progress id="file" max="100" value=".25"> 100% </progress>
+                              </div>
+                              
+                          </div>
+                          <div class="container">
+                            {% block pagecontent %}
+                          
+                                  <div class="panel-body" id="plot">
+                                    Scatter Plot
+                                  </div>
+                                        <py-script output="plot">
+                                          import matplotlib.pyplot as plt
+                                          import numpy as np
+                                        
+                                          x = np.random.randn(1000)
+                                          y = np.random.randn(1000)
+                                        
+                                          fig, ax = plt.subplots()
+                                          ax.scatter(x, y)
+                                          fig
+                                        </py-script>
+                                  <br>
+                                  <hr>
+                                </div>
+                    </div>
+                  </div>
+                </div>
+              <py-script>
+                  import datetime as dt
+                  pyscript.write('today', dt.date.today().strftime('%A %B %d, %Y'))
+              </py-script>
+               
+             
+                      <!-- <div id="user"></div> -->
+           
+              <!-- <py-script output="user">
+                      import json
+                      with open("static/js/user.json") as user_file:
+                          file_contents = user_file.read('user')
+                      print (file_contents)
+              </py-script> -->
+              
+        </div>
+    </div>
+       
+   
+        {% endblock %}
+    </div>
+</div>
+</body>
+
+</html>
