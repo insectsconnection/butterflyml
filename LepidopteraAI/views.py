@@ -1,9 +1,14 @@
 
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
+from .forms import NewUserForm
+from django.contrib.auth import login,logout,authenticate #add this
+from django.contrib import messages
+from django.contrib.auth.forms import AuthenticationForm #add this
 from django.views.generic import TemplateView  # Import TemplateView
 import os
 import pickle
+
 from django.utils.deconstruct import deconstructible
 @deconstructible
 
@@ -165,3 +170,32 @@ def butterfly(request):
 def camera(request):
     # Get all Posts
     return render(request, 'lepidoptera/camera.html')
+
+def registration_request(request):
+    # Get all Posts
+	if request.method == "POST":
+		form = AuthenticationForm(request, data=request.POST)
+		if form.is_valid():
+			username = form.cleaned_data.get('username')
+			password = form.cleaned_data.get('password')
+			user = authenticate(username=username, password=password)
+			if user is not None:
+				login(request, user)
+				messages.info(request, f"You are now logged in as {username}.")
+				return redirect("main:homepage")
+			else:
+				messages.error(request,"Invalid username or password.")
+		else:
+			messages.error(request,"Invalid username or password.")
+	form = AuthenticationForm()
+	return render(request=request, template_name="lepidoptera/main/login.html", context={"login":form})
+
+
+def login_request(request):
+    return render(request, 'lepidoptera/main/login.html')
+
+
+def logout_reques(request):
+    logout(request)
+    messages.info(request, "You have successfully logged out.") 
+    return redirect(request, 'lepidoptera/main/home.html')
