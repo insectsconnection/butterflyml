@@ -29,9 +29,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-p4s^s8i5laa=y#+hv)g$*%h6vtuy9mitz2$nt9cy75iardia@f'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['butterflyml-f83e17b85910.herokuapp.com']
+ALLOWED_HOSTS = ['butterflyml-f83e17b85910.herokuapp.com','127.0.0.1']
 
 
 # Application definition
@@ -92,7 +92,7 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
         'USER': 'postgres',
         'PASSWORD': '',
-        'HOST': 'loclhost'
+        'HOST': 'localhost'
     }
 }
 
