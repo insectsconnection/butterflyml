@@ -1,1 +1,1 @@
-web: gunicorn ML_Butterfly.wsgi
+web: python index.html
