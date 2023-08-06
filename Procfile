@@ -1,1 +1,2 @@
-web: python index.html
+web: gunicorn classification.wsgi –log-file -
+
