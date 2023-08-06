@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" 
+          content="width=device-width, initial-scale=1.0" />
+    <title>Button effect</title>
+    <style>
+        body {
+            padding: 0;
+            margin: 0;
+        }
+  
+        a {
+            position: absolute;
+            top: 40%;
+            left: 40%;
+            transform: translate(-50%, -50%);
+            width: 180px;
+            height: 60px;
+            color: white;
+            text-decoration: none;
+            text-align: center;
+            padding-top: 30px;
+            font-size: 20px;
+            overflow: hidden;
+            background: green;
+        }
+  
+        a::before {
+            content: "";
+            position: absolute;
+            width: 0;
+            height: 0;
+            left: 0;
+            bottom: 0;
+            border-style: solid;
+            border-color: #f00;
+            border-width: 80px 100px;
+            z-index: -1;
+            transform: rotate(360deg);
+            transition: 1s;
+            transform-origin: left;
+        }
+  
+        a:hover::before {
+            border-color: #00f;
+            transform: rotate(60deg);
+        }
+    </style>
+</head>
+  
+<body>
+    <a href="#">BUTTERFLY</a
+<form action="/action_page.php" method="get">
+Choose your Butterfly ENGLISH name:
+<br />
+<button name="subject" type="submit" value="local">LOCAL NAME</button>
+<button name="subject" type="submit" value="scientific">SCIENTIFIC NAME</button>
+<textarea name="" id= rows="8" cols="40"></textarea>
+
+<title>{% translate "This is the title." %}</title>
+<title>{% translate myvar %}</title>
+</form>
+</body>
+  
+</html>

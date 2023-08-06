@@ -1,0 +1,105 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://unpkg.com/ml5@latest/dist/ml5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.0.0/p5.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="/storage/emulated/0/documents/css/iconbar.css" />
+    <link rel="stylesheet" href="/storage/emulated/0/documents/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="/storage/emulated/0/documents/css/mystyle.css"/>
+    <meta charset="UTF-8">
+    <title>Image Classification</title>
+</head>
+
+<body>
+    {% block pagecontent %}
+    {% end block %}
+     <div class="card-body">
+    <h4 class="card-title">Primary card title</h4>
+    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+  </div>
+    <header class="text-center">
+    <h1>Image Classifier</h1>
+    </header>
+    <div>
+			<input type="file" name="file" onChange={changeHandler} />
+			<div>
+				<button onClick={handleSubmission}>Submit</button>
+			</div>
+		</div>
+<form autocomplete="off">
+    <div class="if input-wrapper">
+        <input
+            data-size="larger"
+            type="file"
+            class="if file-upload"
+            accept=".doc,.docx,.xml,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+            id="if-file-upload-2"
+            placeholder="Please upload your CV"
+        />
+        <label for="if-file-upload-2" class="if button secondary">
+            <span class="if icon ui data-upload blue"></span>Upload your CV
+        </label>
+    </div>
+
+<h2>Click "Choose File" to Add an Image</h2
+    <div>
+                <h1>Image classification using MobileNet model</h1>
+    </div>
+
+    <div class="grid-container">
+      <div class="card-deck">
+
+                <div class="card text-center">
+                    <div class="card-block">
+                                        <input class="custom-file-input" class="custom-file-input" type='file' id='getval'/>
+
+                    </div>
+                    <div class="card-footer">                    <img id="image" src="http://placehold.it/180" alt="the image"/>
+        <p>That's
+            <span id="result">... </span> with a confidence of
+            <span id="probability"></span>
+        </p>
+        <p>Proper care management
+            <span id="task">... </span> with a confidence of
+            <span id="larvae"></span>
+        </p>
+        <p>Prevention
+            <span id="prevention">... </span> with a confidence of
+            <span id="todo"></span>
+        </p>
+                    </div>
+            </div>
+        
+       </div>
+                    
+    </div>
+ </form>
+ 
+<div class="card-deck">
+    
+
+    <div class="card-text">
+
+
+    <div class="card-block">
+            <input class="custom-file-input" type='file' id='getval'/>
+            <div class="card-body">
+                    <img id="image" src="http://placehold.it/180" alt="the image"/>
+            </div>
+
+    </div>
+    <div class="card-footer">
+        <p>That's
+            <span id="result">... </span> with a confidence of
+            <span id="probability"></span>
+        </p>
+    </div>
+
+    </div>
+    
+</div>
+    <script src="/storage/emulated/0/documents/js/myscript.js"></script>
+</body>
+</html>

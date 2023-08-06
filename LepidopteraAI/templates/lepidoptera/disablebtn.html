@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<body>
+<form>
+<input type="button" id="btn01" value="OK">
+</form>
+
+<p>Click the "Disable" button to disable the "OK" button:</p>
+
+<button onclick="disableElement()">Disable</button>
+<script>
+function disableElement() {
+  document.getElementById("btn01").disabled = true;
+}
+</script>
+
+<script>
+
+function getIndex() {
+  document.getElementById("demo").innerHTML =
+  document.getElementById("mySelect").selectedIndex;
+}
+</script>
+
+<select id="mySelect">
+  <option>Apple</option>
+  <option>Orange</option>
+  <option>Pineapple</option>
+  <option>Banana</option>
+</select>
+<br><br>
+<input type="button" onclick="getIndex()" 
+value="Display the index of the selected option">
+</form>
+<p id="demo"></p>
+</body>
+</html
