@@ -29,9 +29,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-p4s^s8i5laa=y#+hv)g$*%h6vtuy9mitz2$nt9cy75iardia@f'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['butterflyml-f83e17b85910.herokuapp.com']
+ALLOWED_HOSTS = ['butterflyml-f83e17b85910.herokuapp.com','127.0.0.1']
 
 
 # Application definition
@@ -92,7 +92,7 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
         'USER': 'postgres',
         'PASSWORD': '',
-        'HOST': 'loclhost'
+        'HOST': 'localhost'
     }
 }
 
@@ -132,16 +132,16 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
 STATIC_URL = 'static/'
+#STATIC_URL = '/static/'
+STATICFILES_DIRS = [BASE_DIR / 'static']
+#STATIC_ROOT = 'static_root'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-STATIC_URL = '/static/'
-STATICFILES_DIRS = [BASE_DIR / 'static']
-#STATIC_ROOT = 'static_root'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-
 
 # Actual directory user files go to
 MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'mediafiles')
